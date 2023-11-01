@@ -10,3 +10,5 @@ Just add [@FixupSocialBot](t.me/fixupsocialbot) to your group!
 ### Currently supporting:
 - [fxtwitter.com & fixupx.com](https://github.com/FixTweet/FixTweet)
 - [vxtiktok.com](https://github.com/dylanpdx/vxtiktok)
+
+<a href="https://www.freepik.es/vector-gratis/ejemplo-lindo-historieta-vuelo-robot-concepto-icono-tecnologia-personas_10244952.htm#query=bot%20icon&position=32&from_view=search&track=ais">Icon by catalyststuff</a> @ Freepik
