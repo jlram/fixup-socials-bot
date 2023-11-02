@@ -1,4 +1,5 @@
 {
+  "extends": "@tsconfig/node12/tsconfig.json",
   "compilerOptions": {
     "target": "es2022",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     "module": "commonjs",       
@@ -8,5 +9,7 @@
     "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
     "strict": true,                                      /* Enable all strict type-checking options. */                    /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
-  }
+  },
+  "include": ["src/bot.ts", "environment.d.ts"],
+  "exclude": ["node_modules"]
 }
