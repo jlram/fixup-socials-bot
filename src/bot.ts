@@ -3,20 +3,31 @@ import express from "express";
 
 const bot = new Bot(process.env.TELEGRAM_TOKEN || "");
 const twitterRegex = /https:\/\/(twitter\.com|x\.com)/g;
-const tiktokMobileRegex = /vm.tiktok.com/g;
-const tiktokDesktopRegex = /www.tiktok.com/g;
+const tiktokRegex = /vm.tiktok.com|www.tiktok.com/g;
+const instagramRegex = /www.instagram.com/g;
 
 const replyWithIntro = (ctx: any) => {
   let input = ctx.message.text;
 
   const isTweet = twitterRegex.test(input);
-  const isTikTok = tiktokMobileRegex.test(input) || tiktokDesktopRegex.test(input);
+  const isTikTok = tiktokRegex.test(input);
+  const isInstagram = instagramRegex.test(input);
 
-  if (isTweet || isTikTok) {
-    let rant = isTweet ? 'no fx?' : 'no vx?';
-    let formattedOutput = `${rant} ${input.replace(twitterRegex, "https:\/\/fixupx.com")
-                                          .replace(tiktokMobileRegex, "vm.vxtiktok.com")
-                                          .replace(tiktokDesktopRegex, "www.vxtiktok.com")}
+  const isSocialMediaPost = isTweet || isTikTok || isInstagram;
+
+  if (isSocialMediaPost) {
+    let rant = '';
+    switch (true){
+      case isInstagram: rant = 'no dd?'; break;
+      case isTikTok: rant = 'no vx?'; break;
+      case isTweet: rant = 'no fx?'; break;
+    };
+
+    let response = input.match(/https?:\/\/[^\s]+/)[0].split('?')[0]; 
+
+    let formattedOutput = `${rant} ${response.replace(twitterRegex, "https:\/\/fixupx.com")
+                                          .replace('tiktok', "vxtiktok")
+                                          .replace('instagram', "ddinstagram")}
   `;
 
     ctx.reply(formattedOutput, {
