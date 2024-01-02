@@ -5,15 +5,17 @@ const bot = new Bot(process.env.TELEGRAM_TOKEN || "");
 const twitterRegex = /https:\/\/(twitter\.com|x\.com)/g;
 const tiktokRegex = /vm.tiktok.com|www.tiktok.com/g;
 const instagramRegex = /www.instagram.com/g;
+const mastodonRegex = /https:\/\/(?!twitter\.com|instagram\.com)[a-zA-Z0-9.-]+\/@[a-zA-Z0-9_]+\/[0-9]+/g
 
-const replyWithIntro = (ctx: any) => {
+const replyWithIntro = async (ctx: any) => {
   let input = ctx.message.text;
 
   const isTweet = twitterRegex.test(input);
   const isTikTok = tiktokRegex.test(input);
   const isInstagram = instagramRegex.test(input);
+  const isToot = mastodonRegex.test(input);
 
-  const isSocialMediaPost = isTweet || isTikTok || isInstagram;
+  const isSocialMediaPost = isTweet || isTikTok || isInstagram || isToot;
 
   if (isSocialMediaPost) {
     let rant = '';
@@ -21,14 +23,27 @@ const replyWithIntro = (ctx: any) => {
       case isInstagram: rant = 'no dd?'; break;
       case isTikTok: rant = 'no vx?'; break;
       case isTweet: rant = 'no fx?'; break;
+      case isToot: rant = 'no fxmas?'; break;
     };
 
-    let response = input.match(/https?:\/\/[^\s]+/)[0].split('?')[0]; 
+    let response = input.match(/https?:\/\/[^\s]+/)[0].split('?')[0];
+    let formattedOutput = response;
 
-    let formattedOutput = `${rant} ${response.replace(twitterRegex, "https:\/\/fixupx.com")
-                                          .replace('tiktok', "vxtiktok")
-                                          .replace('instagram', "ddinstagram")}
-  `;
+    if (isToot) {
+      const instanceRegex = /([a-zA-Z0-9.-]+)\/@[a-zA-Z0-9_]+\/[0-9]+/;
+
+      // First retrieves full link, then instance name
+      const getInstance = response.match(instanceRegex);
+
+      const link = getInstance![0];
+      const instance = getInstance![1];
+
+      formattedOutput = link.replace(instance, `https://fxmas.to/${instance}`);
+    } else {
+      formattedOutput = `${rant} ${response.replace(twitterRegex, "https:\/\/fixupx.com")
+      .replace('tiktok', "vxtiktok")
+      .replace('instagram', "ddinstagram")}`;
+    }
 
     ctx.reply(formattedOutput, {
       parse_mode: "HTML",
