@@ -30,7 +30,7 @@ const replyWithIntro = async (ctx: any) => {
     let formattedOutput = response;
 
     if (isToot) {
-      const instanceRegex = /([a-zA-Z0-9.-]+)\/@[a-zA-Z0-9_]+\/[0-9]+/;
+      const instanceRegex = /(?:https:\/\/)?([a-zA-Z0-9.-]+)\/@[a-zA-Z0-9_]+(?:@[a-zA-Z0-9.-]+)?\/[0-9]+/;
 
       // First retrieves full link, then instance name
       const getInstance = response.match(instanceRegex);
