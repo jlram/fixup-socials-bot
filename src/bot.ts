@@ -7,7 +7,7 @@ const tiktokRegex = /vm.tiktok.com|www.tiktok.com/g;
 const instagramRegex = /www.instagram.com/g;
 const mastodonRegex = /https:\/\/(?!twitter\.com|instagram\.com)[a-zA-Z0-9.-]+\/@[a-zA-Z0-9_]+\/[0-9]+/g
 
-const replyWithIntro = async (ctx: any) => {
+const replyWithIntro = (ctx: any) => {
   let input = ctx.message.text;
 
   const isTweet = twitterRegex.test(input);
