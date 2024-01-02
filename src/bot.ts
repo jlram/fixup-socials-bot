@@ -38,7 +38,7 @@ const replyWithIntro = async (ctx: any) => {
       const link = getInstance![0];
       const instance = getInstance![1];
 
-      formattedOutput = `${rant} ${link.replace(instance, `https://fxmas.to/${instance}`)}`;
+      formattedOutput = `${rant} ${link.replace(instance, `fxmas.to/${instance}`)}`;
     } else {
       formattedOutput = `${rant} ${response.replace(twitterRegex, "https:\/\/fixupx.com")
       .replace('tiktok', "vxtiktok")
